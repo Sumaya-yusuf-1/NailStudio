@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    // Target environment
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+
+    // Projektstruktur
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    // Node/Express med import-syntax
+    "esModuleInterop": true,
+
+    // Hjälpsamma flaggor
+    "strict": true,
+    "skipLibCheck": true,
+    "sourceMap": true
+  },
+  "include": ["src"]
+}
