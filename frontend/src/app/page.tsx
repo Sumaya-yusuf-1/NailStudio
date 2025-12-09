@@ -2,7 +2,6 @@
 "use client";
 
 import Image from "next/image";
-import { Footer } from "./components/layout/Footer";
 import { Button } from "./components/ui/Button";
 import { Award, Heart, Palette, Sparkles, Star } from "lucide-react";
 
@@ -10,10 +9,10 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <main className="flex-1">
-        {/* HERO – matches your Figma layout */}
+        {/* HERO */}
         <section className="bg-[#FFF6F4] border-b">
           <div className="container mx-auto grid gap-10 px-4 py-12 md:grid-cols-[1.2fr_1fr] md:items-center md:px-8 md:py-16 lg:py-20">
-            {/* Left side: text + buttons */}
+            {/*  text + buttons */}
             <div className="space-y-4 md:space-y-6">
               <p className="text-xs uppercase tracking-[0.25em] text-pink-500">
                 NailStudio
@@ -47,7 +46,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right side: collage card */}
+            {/* collage card */}
             <div className="relative h-64 sm:h-72 md:h-80 lg:h-96">
               {/* Card background */}
               <div className="absolute inset-0 rounded-4xl bg-white shadow-xl shadow-pink-200/40" />
@@ -66,20 +65,19 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* WAVE + 3 FEATURE CARDS */}
+        {/* WAVE Part */}
         <section className="relative">
           <div className="relative overflow-hidden bg-linear-to-br from-pink-300 via-pink-400 to-pink-500">
-            {/* Background wave image */}
             <div className="pointer-events-none absolute inset-0 -z-10 opacity-70">
               <Image
-                src="/bg-second.png" // make sure file name has NO space
+                src="/bg-second.png" 
                 alt=""
                 fill
                 className="object-cover"
               />
             </div>
 
-            {/* White wave at the bottom */}
+           
             <div className="absolute bottom-0 left-0 right-0 overflow-hidden leading-none">
               <svg
                 className="relative block h-16 w-full md:h-24"
@@ -343,7 +341,7 @@ export default function HomePage() {
         </section>
       </main>
 
-      <Footer />
+
     </div>
   );
 }

@@ -1,4 +1,3 @@
-// components/footer.tsx
 import Link from "next/link"
 
 const navLinks = [
@@ -10,6 +9,7 @@ const navLinks = [
 
 export function Footer() {
   return (
+     
     <footer className="border-t border-pink-100 bg-[#FFF6F4] mt-16">
       <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8 md:flex-row md:items-center md:justify-between">
         {/* Left: logo + text */}
