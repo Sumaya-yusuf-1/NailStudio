@@ -102,7 +102,7 @@ function AlmondShape({ color, className }: BaseProps) {
         d="M17.3147 96.9635C26.9253 83.673 30.4792 68.5611 29.9461 50.569L28.9983 18.5831C28.7021 8.58744 22.4677 0.768666 14.4712 1.00562C6.47475 1.24258 0.714344 9.41679 1.01054 19.4124L1.95837 51.3984C2.49153 69.3905 6.93407 84.2654 17.3147 96.9635Z"
         fill={color}
         stroke="#E39B7A"
-        strokeWidth={0}
+        strokeWidth={0.5}
       />
     </svg>
   );
@@ -119,7 +119,7 @@ function SquareShape({ color, className }: BaseProps) {
         d="M29.6509 83.876L1.65194 84.1193L1.00029 9.12209C0.95685 4.12227 6.93056 1.07026 14.9303 1.00075C22.93 0.93124 28.9558 3.87899 28.9992 8.87881L29.6509 83.876Z"
         fill={color}
         stroke="#E39B7A"
-         strokeWidth={0.3}
+         strokeWidth={0.5}
       />
     </svg>
   );
@@ -154,7 +154,7 @@ function StilettoTipShape({ color, className }: BaseProps) {
         d="M15 60 L5 20 L25 20 Z"
         fill={color}
         stroke="#E39B7A"
-        strokeWidth={0}
+        strokeWidth={0.2}
       />
     </svg>
   );

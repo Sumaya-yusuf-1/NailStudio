@@ -28,22 +28,22 @@ export function ShapeSelect({ value, onChange }: Props) {
       <button
         type='button'
         onClick={() => setOpen((prev) => !prev)}
-        className='flex w-full items-center gap-2 rounded-lg border border-[#BA4576]/40 bg-white px-3 py-2 text-[15px] font-light text-gray-800'
+        className='flex w-full items-center gap-2 rounded-lg border border-[#BA4576]/40 bg-white px-3 py-2 text-[15px] font-light text-gray-800 lg:p-2'
       >
         {/* thumbnail*/}
-        <div className='flex h-9 w-9 items-center justify-center rounded-xl bg-[#DFBBBB]'>
+        <div className='flex h-9 w-9 items-center justify-center rounded-xl bg-[#DFBBBB] lg:h-12 lg:w-12'>
           {activeShape && (
             <Image
               src='/shapes/Stiletto.png'
               alt='Stiletto'
-              width={26}
+              width={28}
               height={30}
-              className='object-contain'
+              className='object-contain  mb-1 lg:w-9 lg:mb-1' 
             />
           )}
         </div>
 
-        <span>Shapes</span>
+        <span >Shapes</span>
 
         {/* Chevron */}
         <span className='ml-auto'>
@@ -71,12 +71,11 @@ export function ShapeSelect({ value, onChange }: Props) {
             md:left-0 md:max-w-none md:w-72 md:translate-x-0
           '
         >
-          <div className='mb-3 flex items-center justify-between text-sm font-light text-white/90'>
-            <span>Shapes</span>
+          <div className='mb-3 items-center  text-sm font-light text-white/90 flex justify-end'>
             <button
               type='button'
               onClick={() => setOpen(false)}
-              className='flex h-7 w-7 items-center justify-center rounded-full border border-white/60 text-xs'
+              className='flex h-7 w-7 items-center justify-center rounded-full border border-white/60 text-xs '
             >
               ✕
             </button>

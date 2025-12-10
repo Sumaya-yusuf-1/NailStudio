@@ -11,9 +11,9 @@ export function Footer() {
   return (
      
     <footer className="border-t border-pink-100 bg-[#FFF6F4] mt-16">
-      <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8 md:flex-row md:items-center md:justify-between">
+      <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8 md:flex-row md:items-center md:justify-between lg:justify-between">
         {/* Left: logo + text */}
-        <div className="space-y-2">
+        <div className="space-y-2 lg:self-start ">
           <div className="flex items-center gap-2">
             <span className="text-xl font-semibold tracking-wide text-pink-700">
               nail<span className="text-pink-400">studio</span>

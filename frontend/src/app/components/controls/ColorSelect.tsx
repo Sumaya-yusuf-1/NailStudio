@@ -16,31 +16,77 @@ const COLOR_GROUPS: ColorGroup[] = [
   {
     name: "Base Colors",
     colors: [
-      "#E6A3A3",
-      "#E8B9A0",
-      "#ECCA9E",
-      "#E9D7B5",
-      "#C794B3",
-      "#C38ABF",
-      "#A77BD8",
-      "#866AD9",
+      "#C43131",
+      "#E65A28",
+      "#F2C327",
+      "#9CCB3C",
+      "#4DAE4F",
+      "#2D8C8F",
+      "#4167D8",
+      "#7C48C9",
+      "#B55685",
+      "#3A3A3A",
     ],
   },
   {
     name: "Cream",
-    colors: ["#F6E7DD", "#F3E0E3", "#F2E8F4", "#E7EFE4", "#E4F1F4", "#E5E2F5"],
+    colors: [
+      "#F3D5D5",
+      "#F4D7C6",
+      "#F6E6B5",
+      "#DDF2C4",
+      "#C8E8C9",
+      "#C3E4E6",
+      "#D4DBF6",
+      "#E4D8F7",
+      "#F3D1E5",
+      "#D0D0D0",
+    ],
   },
   {
     name: "Jelly",
-    colors: ["#F58FA7", "#F4A3C5", "#F1B0D5", "#E58EC7", "#D878BE"],
+    colors: [
+      "#E8A6A1",
+      "#D94A7A",
+      "#A83833",
+      "#C67354",
+      "#9B7A5E",
+      "#7CB8C9",
+      "#3F57B9",
+      "#7CD9B0",
+      "#4A6A27",
+      "#282828",
+    ],
   },
   {
     name: "Matte",
-    colors: ["#C0644A", "#B97855", "#B68A63", "#A67873", "#8C6270"],
+    colors: [
+      "#A22B2B",
+      "#C94D25",
+      "#D1B025",
+      "#85B039",
+      "#459E48",
+      "#2A7A80",
+      "#3A59BF",
+      "#6E3FB8",
+      "#9D4E72",
+      "#2B2B2B",
+    ],
   },
   {
     name: "Metallic",
-    colors: ["#A86C3A", "#8B5F3C", "#6D4A33", "#3E3C46", "#262532"],
+    colors: [
+      "#C43131",
+      "#E65A28",
+      "#F2C327",
+      "#9CCB3C",
+      "#4DAE4F",
+      "#2D8C8F",
+      "#4167D8",
+      "#7C48C9",
+      "#B55685",
+      "#3A3A3A",
+    ],
   },
 ];
 
@@ -54,10 +100,8 @@ export function ColorSelect({ value, onChange }: Props) {
 
   return (
     <div className='flex flex-col gap-1 min-w-[140px]'>
-     
-
       <div className='relative inline-block w-full'>
-        {/* text + icon + chevron */}
+       
         <button
           type='button'
           onClick={() => setOpen((prev) => !prev)}
@@ -71,7 +115,7 @@ export function ColorSelect({ value, onChange }: Props) {
           <span className='ml-auto flex items-center gap-2'>
             {/* small color preview*/}
             <span
-              className='h-4 w-4 rounded border border-gray-300'
+              className='h-4 w-4 rounded border border-gray-300 '
               style={{ backgroundColor: value || "#FFFFFF" }}
             />
             <svg
@@ -92,11 +136,6 @@ export function ColorSelect({ value, onChange }: Props) {
         {/* Dropdown color picker */}
         {open && (
           <div className='absolute left-0 z-10 mt-2 w-[340px] rounded-2xl bg-[#DFBBBB] p-4 shadow-lg'>
-            <div className='mb-3 flex items-center gap-2 text-sm font-semibold text-gray-800'>
-              <span className='text-lg font-light'>‹</span>
-              <span className='tracking-wide'>COLOR</span>
-            </div>
-
             <div className='flex max-h-72 flex-col gap-3 overflow-y-auto pr-1'>
               {COLOR_GROUPS.map((group) => (
                 <div key={group.name}>
@@ -113,7 +152,7 @@ export function ColorSelect({ value, onChange }: Props) {
                           onClick={() => handleSelect(color)}
                           className={`h-6 w-6 rounded-full border ${
                             isActive
-                              ? "border-[#BA4576] ring-2 ring-[#BA4576]/40"
+                              ? "border-[#a30a4a] ring-2 ring-[#BA4576]/40"
                               : "border-transparent"
                           }`}
                           style={{ backgroundColor: color }}

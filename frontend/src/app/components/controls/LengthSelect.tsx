@@ -23,7 +23,7 @@ export function LengthSelect({ value, onChange }: Props) {
         <button
           type='button'
           onClick={() => setOpen((prev) => !prev)}
-          className='flex w-full items-center gap-2 rounded-lg border border-[#BA4576]/40 bg-white px-3 py-2 text-[15px] font-light text-gray-800'
+          className='flex w-full items-center gap-2 rounded-lg border border-[#BA4576]/40 bg-white px-3 py-2 text-[15px] font-light text-gray-800 lg:p-3'
         >
           <svg
             width='36'
@@ -60,8 +60,12 @@ export function LengthSelect({ value, onChange }: Props) {
         </button>
 
         {/* Short / Medium / Long buttons */}
+
         {open && (
-          <div className='mt-2 flex gap-2'>
+          <div
+            className='mt-2 flex gap-6 bg-[#D7C0C3] p-4 rounded-lg w-100 h-15 ml-3  justify-center items-center  md:max-w-[600px] md:mx-auto
+  lg:max-w-[330px] lg:mx-auto lg:-ml-8 lg:mt-4'
+          >
             {LENGTH_OPTIONS.map((opt) => {
               const isActive = value === opt.id;
               return (
@@ -72,7 +76,7 @@ export function LengthSelect({ value, onChange }: Props) {
                     onChange(opt.id);
                     setOpen(false);
                   }}
-                  className={`rounded-full px-4 py-1 text-xs font-medium ${
+                  className={`rounded-lg px-6 py-2 gap-4 text-sm font-medium ${
                     isActive
                       ? "bg-[#BA4576] text-white"
                       : "bg-white text-gray-800 border border-[#BA4576]/30"
@@ -84,7 +88,7 @@ export function LengthSelect({ value, onChange }: Props) {
             })}
           </div>
         )}
-        
+
         <select
           value={value}
           onChange={(e) => onChange(e.target.value as LengthId)}
