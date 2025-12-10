@@ -88,12 +88,7 @@ export default function AboutPage() {
               <Button className='bg-[#BA4576] hover:bg-[#A93A6A] text-white px-8 py-3 rounded-full'>
                 Start Designing
               </Button>
-              <Button
-                variant='outline'
-                className='border-[#BA4576] text-[#BA4576] hover:bg-pink-50 px-8 py-3 rounded-full'
-              >
-                Meet Our Team
-              </Button>
+             
             </div>
           </div>
         </div>
