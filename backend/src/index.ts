@@ -2,27 +2,64 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import { Design } from "./models/Design";
 
 dotenv.config();
 
 const app = express();
 
-// middlewares
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000" })); // frontend origin
 app.use(express.json());
 
-// test route
+// health check
 app.get("/", (_req: Request, res: Response) => {
   res.send("Hello from NailStudio backend!");
 });
 
-// --- MongoDB connection ---
+// ---- API: get all designs ----
+app.get("/api/designs", async (_req: Request, res: Response) => {
+  try {
+    const designs = await Design.find().sort({ createdAt: -1 }).lean();
+    res.json(designs);
+  } catch (err) {
+    console.error("Error fetching designs:", err);
+    res.status(500).json({ message: "Failed to load designs" });
+  }
+});
+
+// ---- API: create design ----
+app.post("/api/designs", async (req: Request, res: Response) => {
+  try {
+    const { shape, length, colorHex, glitterOn, sticker } = req.body;
+
+    // basic validation
+    if (!shape || !length || !colorHex) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    const design = await Design.create({
+      shape,
+      length,
+      colorHex,
+      glitterOn: !!glitterOn,
+      sticker: sticker ?? null,
+      savedAt: new Date(),
+    });
+
+    res.status(201).json(design);
+  } catch (err) {
+    console.error("Error saving design:", err);
+    res.status(500).json({ message: "Failed to save design" });
+  }
+});
+
+// ---- Mongo connection & server start ----
 const MONGO_URI = process.env.MONGO_URI || "";
 
 async function start() {
   try {
     if (!MONGO_URI) {
-      console.warn("⚠️  No MONGO_URI set in .env – skipping Mongo connection");
+      console.warn("⚠️ No MONGO_URI set in .env");
     } else {
       await mongoose.connect(MONGO_URI);
       console.log("✅ Connected to MongoDB");
