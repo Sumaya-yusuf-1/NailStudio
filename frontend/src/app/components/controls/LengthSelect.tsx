@@ -2,6 +2,7 @@
 
 import { LengthId } from "@/app/create/page";
 import { useState } from "react";
+import { Button } from "../ui/Button";
 
 const LENGTH_OPTIONS: { id: LengthId; label: string }[] = [
   { id: "short", label: "Short" },
@@ -20,10 +21,11 @@ export function LengthSelect({ value, onChange }: Props) {
   return (
     <div className='flex flex-col gap-1 min-w-[140px]'>
       <div className='inline-block w-full'>
-        <button
+        <Button
           type='button'
+          variant='outline'
           onClick={() => setOpen((prev) => !prev)}
-          className='flex w-full items-center gap-2 rounded-lg border border-[#BA4576]/40 bg-white px-3 py-2 text-[15px] font-light text-gray-800 lg:p-3'
+          className='flex w-full items-center gap-2 rounded-lg px-3 py-2 text-[15px] font-light text-gray-800 lg:p-3'
         >
           <svg
             width='36'
@@ -41,6 +43,7 @@ export function LengthSelect({ value, onChange }: Props) {
             <line x1='15' y1='6' x2='15' y2='4' />
             <line x1='19' y1='6' x2='19' y2='4' />
           </svg>
+
           <span>Length</span>
 
           <span className='ml-auto'>
@@ -57,7 +60,7 @@ export function LengthSelect({ value, onChange }: Props) {
               <polyline points='6 9 12 15 18 9' />
             </svg>
           </span>
-        </button>
+        </Button>
 
         {/* Short / Medium / Long buttons */}
 
@@ -69,21 +72,19 @@ export function LengthSelect({ value, onChange }: Props) {
             {LENGTH_OPTIONS.map((opt) => {
               const isActive = value === opt.id;
               return (
-                <button
+                <Button
                   key={opt.id}
                   type='button'
+                  size='sm'
+                  variant={isActive ? "primary" : "outline"}
                   onClick={() => {
                     onChange(opt.id);
                     setOpen(false);
                   }}
-                  className={`rounded-lg px-6 py-2 gap-4 text-sm font-medium ${
-                    isActive
-                      ? "bg-[#BA4576] text-white"
-                      : "bg-white text-gray-800 border border-[#BA4576]/30"
-                  }`}
+                  className='px-6 py-2 text-sm rounded-lg'
                 >
                   {opt.label}
-                </button>
+                </Button>
               );
             })}
           </div>

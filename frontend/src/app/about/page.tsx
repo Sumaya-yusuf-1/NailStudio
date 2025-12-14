@@ -3,35 +3,8 @@
 
 import { Heart, Palette, Sparkles, Target, Users } from "lucide-react";
 import { Button } from "../components/ui/Button";
-
+import Link from "next/link";
 export default function AboutPage() {
-  const teamMembers = [
-    {
-      name: "Emma Johnson",
-      role: "Founder & Lead Designer",
-      bio: "With over 10 years of nail art experience, Emma brings creativity and passion to every design.",
-      image: "/team/emma.jpg",
-    },
-    {
-      name: "Sarah Chen",
-      role: "Tech Developer",
-      bio: "Sarah combines her coding skills with a love for beauty to create seamless digital experiences.",
-      image: "/team/sarah.jpg",
-    },
-    {
-      name: "Maya Rodriguez",
-      role: "Creative Director",
-      bio: "Maya's artistic vision and trend forecasting keep NailStudio at the forefront of nail fashion.",
-      image: "/team/maya.jpg",
-    },
-    {
-      name: "Lena Park",
-      role: "Customer Experience",
-      bio: "Lena ensures every client feels valued and leaves with a smile and beautiful nails.",
-      image: "/team/lena.jpg",
-    },
-  ];
-
   const values = [
     {
       icon: <Heart className='h-6 w-6' />,
@@ -85,10 +58,11 @@ export default function AboutPage() {
               and beautiful for everyone.
             </p>
             <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-              <Button className='bg-[#BA4576] hover:bg-[#A93A6A] text-white px-8 py-3 rounded-full'>
-                Start Designing
-              </Button>
-             
+              <Link href='/create'>
+                <Button size='lg' className='rounded-full'>
+                  Start Designing
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

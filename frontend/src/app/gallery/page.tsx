@@ -7,6 +7,7 @@ import {
 } from "@/lib/designStorage";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Button } from "../components/ui/Button";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
@@ -118,7 +119,10 @@ export default function GalleryPage() {
 
                 {/* Buttons */}
                 <div className='flex items-center gap-2'>
-                  <button
+                  <Button
+                    variant='outline'
+                    size='sm'
+                    className='rounded-full'
                     onClick={() => {
                       saveCurrentDesign({
                         shape: d.shape,
@@ -129,22 +133,24 @@ export default function GalleryPage() {
                       });
                       router.push("/create");
                     }}
-                    className='rounded-full border border-pink-200 px-3 py-1 text-xs text-pink-700 hover:bg-pink-50'
                   >
                     Open in Create
-                  </button>
+                  </Button>
 
-                  <button
+                  <Button
+                    variant='outline'
+                    size='icon'
+                    className='rounded-full'
+                    aria-label='Delete design'
                     onClick={() => handleDelete(d.id)}
-                    className='rounded-full border border-pink-200 p-1.5 hover:bg-pink-50'
                   >
                     <svg width='20' height='20' viewBox='0 0 37 34'>
                       <path
                         d='M10.7915 29.75C9.94359 29.75 9.21772 29.4726 8.6139 28.9177C8.01008 28.3628 7.70817 27.6958 7.70817 26.9167V8.5H6.1665V5.66667H13.8748V4.25H23.1248V5.66667H30.8332V8.5H29.2915V26.9167C29.2915 27.6958 28.9896 28.3628 28.3858 28.9177C27.782 29.4726 27.0561 29.75 26.2082 29.75H10.7915ZM26.2082 8.5H10.7915V26.9167H26.2082V8.5ZM13.8748 24.0833H16.9582V11.3333H13.8748V24.0833ZM20.0415 24.0833H23.1248V11.3333H20.0415V24.0833Z'
-                        fill='#1D1B20'
+                        fill='currentColor'
                       />
                     </svg>
-                  </button>
+                  </Button>
                 </div>
               </li>
             );

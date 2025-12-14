@@ -8,6 +8,7 @@ import { LengthSelect } from "../components/controls/LengthSelect";
 import { ShapeSelect } from "../components/controls/ShapeSelect";
 import { StickerSelect } from "../components/controls/StickerSelect";
 import { NailPreview } from "../components/Nails/NailPreview";
+import { Button } from "../components/ui/Button";
 
 export type ShapeId =
   | "round"
@@ -33,7 +34,7 @@ export default function CreatePage() {
   const { shape, length, color, glitterOn, sticker } = design;
 
   const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+    process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
   // ----- SAVE handler -----
   async function handleSave() {
     const newDesign = {
@@ -120,13 +121,16 @@ export default function CreatePage() {
           {/*  BaseColor / Sticker */}
           <section className='flex flex-col gap-4 lg:self-start lg:mt-9 d:pl-4  '>
             {/* Base color row */}
-            <div className='border border-[#BA4576]/35 rounded-xl px-4 py-3 text-sm flex justify-between items-center bg-white/60 lg:p-5 '>
+            <div className='border border-[#BA4576]/35 rounded-xl px-4 py-3 text-sm flex justify-between items-center bg-white/60 lg:p-3 '>
               <span>BaseColor</span>
-              <button
-                type='button'
+              <Button
                 onClick={clearColor}
                 aria-label='Remove base color'
-                className='hover:opacity-80 transition '
+                variant='ghost'
+                size='icon'
+                shape='pill'
+                className='py-1 hover:opacity-80 '
+              
               >
                 <svg width='20' height='20' viewBox='0 0 37 34'>
                   <path
@@ -134,20 +138,19 @@ export default function CreatePage() {
                     fill='#1D1B20'
                   />
                 </svg>
-              </button>
+              </Button>
             </div>
 
             {/* Sticker row */}
-            <div className='border border-[#BA4576]/35 rounded-xl px-4 py-3 text-sm flex justify-between items-center bg-white/60 lg:p-5'>
+            <div className='border border-[#BA4576]/35 rounded-xl px-4 py-3 text-sm flex justify-between items-center bg-white/60 lg:p-3'>
               <span>Sticker</span>
-              <button
-                type='button'
-                onClick={clearSticker}
-                aria-label='Remove sticker'
-                disabled={!sticker}
-                className={`transition ${
-                  sticker ? "hover:opacity-80" : "opacity-40 cursor-not-allowed"
-                }`}
+              <Button
+                onClick={clearColor}
+                aria-label='Remove base color'
+                variant='ghost'
+                size='icon'
+                shape='pill'
+                className='hover:opacity-80'
               >
                 <svg width='20' height='20' viewBox='0 0 37 34'>
                   <path
@@ -155,42 +158,44 @@ export default function CreatePage() {
                     fill='#1D1B20'
                   />
                 </svg>
-              </button>
+              </Button>
             </div>
           </section>
         </div>
 
         {/* Bottom buttons */}
-        <div className='mt-6 flex flex-col md:flex-row gap-4 justify-center md:justify-end'>
-          <button
-            type='button'
+
+        <div className='mt-10 flex flex-col md:flex-row gap-7 justify-center md:justify-end lg:justify-center'>
+          <Button
             onClick={undo}
             disabled={!prevDesign}
-            className={`px-5 py-2 rounded-full border border-[#BA4576]/35 bg-white text-sm transition
-              ${
-                prevDesign
-                  ? "hover:bg-[#FDF7F7]"
-                  : "opacity-50 cursor-not-allowed"
-              }`}
+            variant='outline'
+            size='md'
+            shape='pill'
+            className='lg:rounded-xl lg:px-8 lg:py-3 lg:text-base'
           >
             Undo
-          </button>
+          </Button>
 
-          <button
-            type='button'
+          <Button
             onClick={resetAll}
-            className='px-5 py-2 rounded-full border border-[#BA4576]/35 bg-white text-sm hover:bg-[#FDF7F7] transition'
+            variant='outline'
+            size='md'
+            shape='pill'
+            className='lg:rounded-xl lg:px-8 lg:py-3 lg:text-base'
           >
             Start over
-          </button>
+          </Button>
 
-          <button
-            type='button'
+          <Button
             onClick={handleSave}
-            className='px-6 py-2 rounded-full bg-[#BA4576] text-white text-sm font-semibold hover:bg-[#A23D6A] transition'
+            variant='primary'
+            size='md'
+            shape='pill'
+            className='lg:rounded-xl lg:px-8 lg:py-3 lg:text-base'
           >
             Save
-          </button>
+          </Button>
         </div>
       </div>
     </main>

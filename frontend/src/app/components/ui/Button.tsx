@@ -1,57 +1,78 @@
-// components/ui/button.tsx
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-type ButtonVariant = "primary" | "outline" | "ghost"
-type ButtonSize = "sm" | "md" | "lg" | "icon"
+type ButtonVariant = "primary" | "outline" | "ghost";
+type ButtonSize = "sm" | "md" | "lg" | "icon";
+type ButtonShape = "pill" | "rounded" | "square";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: ButtonVariant
-  size?: ButtonSize
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  shape?: ButtonShape;
+  fullWidth?: boolean;
 }
 
 /** Tiny helper to join class names */
 function cn(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(" ")
+  return classes.filter(Boolean).join(" ");
 }
+
+const base =
+  "inline-flex items-center justify-center font-medium transition-colors select-none " +
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white " +
+  "disabled:opacity-50 disabled:cursor-not-allowed";
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary:
-    "bg-pink-600 text-white hover:bg-pink-700 focus-visible:ring-pink-300",
+  primary: "bg-[#BA4576] text-white hover:bg-[#A23D6A] focus-visible:ring-[#BA4576]/30",
   outline:
-    "border border-pink-400 text-pink-700 bg-white hover:bg-pink-50 focus-visible:ring-pink-200",
-  ghost:
-    "text-pink-700 hover:bg-pink-50 focus-visible:ring-pink-100",
-}
+    "border border-[#BA4576]/35 bg-white text-slate-900 hover:bg-[#FDF7F7] focus-visible:ring-[#BA4576]/20",
+  ghost: "bg-transparent text-slate-900 hover:bg-[#FDF7F7] focus-visible:ring-[#BA4576]/15",
+};
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: "h-9 px-3 text-xs",
-  md: "h-10 px-4 text-sm",
-  lg: "h-11 px-6 text-sm md:text-base",
-  icon: "h-10 w-10 p-0 inline-flex items-center justify-center",
-}
+  sm: "px-4 py-2 text-sm",
+  md: "px-5 py-2 text-sm",
+  lg: "px-6 py-2 text-base",
+  icon: "h-10 w-10 p-0",
+};
+
+const shapeStyles: Record<ButtonShape, string> = {
+  pill: "rounded-full",
+  rounded: "rounded-xl",
+  square: "rounded-md",
+};
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "primary", size = "md", children, ...props }, ref) => {
+  (
+    {
+      className,
+      variant = "primary",
+      size = "md",
+      shape = "pill",
+      fullWidth,
+      type = "button",
+      ...props
+    },
+    ref
+  ) => {
     return (
       <button
         ref={ref}
+        type={type}
         className={cn(
-          "inline-flex items-center justify-center rounded-md font-medium transition-colors",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white",
-          "disabled:opacity-50 disabled:cursor-not-allowed",
+          base,
           variantStyles[variant],
           sizeStyles[size],
+          shapeStyles[shape],
+          fullWidth && "w-full",
           className
         )}
         {...props}
-      >
-        {children}
-      </button>
-    )
+      />
+    );
   }
-)
+);
 
-Button.displayName = "Button"
+Button.displayName = "Button";
