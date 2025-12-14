@@ -41,20 +41,12 @@ const SQUOVAL_BY_LENGTH: Record<LengthId, string> = {
   medium: "scale-x-[2.2] scale-y-[1.00] -mt-4 translate-x-[-1px]", 
   long:   "scale-x-[2] scale-y-[1.1] -mt-0 translate-x-[-1px]", 
 };
-
-// Stiletto-base
-const STILETTO_BASE_BY_LENGTH: Record<LengthId, string> = {
-  short:  "scale-x-[2.2] scale-y-[0.9] -mt-2 translate-y-[2px]",
-  medium: "scale-x-[1.85] scale-y-[0.85] -mt-2 translate-y-[2px]",
-  long:   "scale-x-[1.7] scale-y-[0.9]  translate-y-[0px] -mt-3",
+const STILETTO_BY_LENGTH: Record<LengthId, string> = {
+  short:  "w-[150px] h-[170px] translate-y-[6px] translate-x-[2px] scale-y-[1.07] scale-x-[1.0] -ml-3 mt-3",
+  medium: "w-[150px] h-[170px] translate-y-[6px] translate-x-[2px] scale-y-[1.07] scale-x-[0.9] -ml-3 mt-3",
+  long:   "w-[150px] h-[170px] translate-y-[6px] translate-x-[2px] scale-y-[1.07] scale-x-[0.77] -ml-3 mt-3",
 };
 
-// Stiletto TIP 
-const STILETTO_TIP_BY_LENGTH: Record<LengthId, string> = {
-  short:  "scale-x-[1.1] scale-y-[0.3] translate-y-[7.5px] translate-x-[1.7px]  ",
-  medium: "scale-x-[0.9] scale-y-[0.4] translate-y-[11px]  translate-x-[1.3px] ",
-  long:   "scale-x-[0.84] scale-y-[0.5] translate-y-[10px] translate-x-[1px] ",
-};
 /* ========= SVG-forms ========= */
 
 function RoundShape({ color, className }: BaseProps) {
@@ -142,24 +134,28 @@ function SquovalShape({ color, className }: BaseProps) {
   );
 }
 
-
-function StilettoTipShape({ color, className }: BaseProps) {
+function StilettoShape({
+  color,
+  length,
+  className,
+}: BaseProps & { length: LengthId }) {
   return (
-    <svg
-      viewBox="0 0 30 60"
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M15 60 L5 20 L25 20 Z"
-        fill={color}
-        stroke="#E39B7A"
-        strokeWidth={0.2}
-      />
-    </svg>
+    <div className={`${STILETTO_BY_LENGTH[length]} ${className ?? ""}`}>
+      <svg
+        viewBox="0 0 65 107"
+        className="block h-full w-full rotate-180"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M32.4337 0C45.4072 26.743 64.8674 53.4861 64.8674 80.2291V93.6007C64.8674 100.286 55.1373 106.972 32.4337 106.972C9.73011 106.972 0 100.286 0 93.6007V80.2291C0 53.4861 19.4602 26.743 32.4337 0Z"
+          fill={color}
+          stroke="#E39B7A"
+          strokeWidth={0.5}
+        />
+      </svg>
+    </div>
   );
 }
-
 export function NailShape({
   shape,
   color,
@@ -219,19 +215,11 @@ export function NailShape({
       );
    case "stiletto":
   return (
-    <div className={`relative h-full w-full ${className ?? ""}`}>
-      {/* base – almond*/}
-      <AlmondShape
-        color={color}
-        className={`h-full w-full ${STILETTO_BASE_BY_LENGTH[length]}`}
-      />
-
-      {/* spets –  stiletto-tip */}
-      <StilettoTipShape
-        color={color}
-        className={`pointer-events-none absolute inset-0 ${STILETTO_TIP_BY_LENGTH[length]}`}
-      />
-    </div>
+    <StilettoShape
+      color={color}
+      length={length}
+      className={className}
+    />
   );
     default:
       return (
