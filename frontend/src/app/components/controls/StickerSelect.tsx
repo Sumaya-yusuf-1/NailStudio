@@ -3,16 +3,28 @@
 import { useState } from "react";
 
 const STICKER_OPTIONS: { id: string; label: string; icon: string }[] = [
-  { id: "heart", label: "Heart", icon: "❤" },
-  { id: "star", label: "Star", icon: "✦" },
-  { id: "sparkle", label: "Sparkle", icon: "✧" },
   { id: "flower", label: "Flower", icon: "❀" },
   { id: "bow", label: "Bow", icon: "⌘" },
   { id: "moon", label: "Moon", icon: "☾" },
   { id: "eye", label: "Eye", icon: "◉" },
   { id: "smile", label: "Smile", icon: "෴" },
-  { id: "diamond", label: "Diamond", icon: "◇" },
+
   { id: "sparkle2", label: "Sparkle 2", icon: "✺" },
+  { id: "heart", label: "Heart", icon: "❤" },
+  { id: "heart-outline", label: "Heart Outline", icon: "♡" },
+  { id: "heart-black", label: "Black Heart", icon: "♥" },
+
+  { id: "sparkle", label: "Sparkle", icon: "✧" },
+  { id: "sparkle-bold", label: "Bold Sparkle", icon: "✦" },
+
+  { id: "flower-outline", label: "Flower Outline", icon: "✿" },
+  { id: "leaf", label: "Leaf", icon: "❦" },
+
+  { id: "star", label: "Star", icon: "★" },
+  { id: "star-outline", label: "Star Outline", icon: "☆" },
+
+  { id: "dot", label: "Dot", icon: "•" },
+  
 ];
 
 type Props = {
