@@ -8,18 +8,19 @@ import {
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+
 export default function GalleryPage() {
   const [designs, setDesigns] = useState<SavedDesign[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const router = useRouter();
-
   useEffect(() => {
     let ignore = false;
 
     async function load() {
       try {
-        const res = await fetch("http://localhost:4000/api/designs");
+        const res = await fetch(`${API_BASE_URL}/api/designs`);
         if (!res.ok) {
           console.error("Failed to load designs", await res.text());
           return;
@@ -27,7 +28,6 @@ export default function GalleryPage() {
 
         const json = await res.json();
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const mapped: SavedDesign[] = json.map((d: any) => ({
           id: d._id,
           shape: d.shape,
@@ -65,7 +65,7 @@ export default function GalleryPage() {
     return (
       <div className='space-y-6'>
         <h1 className='text-xl font-semibold p-3 mt-3 ml-4 text-slate-900 lg:mt-10 lg:ml-65'>
-         All saved by you
+          All saved by you
         </h1>
         <p className='text-sm text-slate-600 p-3 ml-4'>Loading…</p>
       </div>
@@ -75,7 +75,7 @@ export default function GalleryPage() {
   return (
     <div className='space-y-6'>
       <h1 className='text-xl font-semibold p-3 mt-3 ml-4 text-slate-900 lg:mt-10 lg:ml-65  '>
-         All saved by you
+        All saved by you
       </h1>
 
       {designs.length === 0 ? (

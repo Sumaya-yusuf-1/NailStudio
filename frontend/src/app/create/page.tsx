@@ -32,6 +32,8 @@ export default function CreatePage() {
 
   const { shape, length, color, glitterOn, sticker } = design;
 
+  const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
   // ----- SAVE handler -----
   async function handleSave() {
     const newDesign = {
@@ -43,7 +45,7 @@ export default function CreatePage() {
     };
 
     try {
-      const res = await fetch("http://localhost:4000/api/designs", {
+      const res = await fetch(`${API_BASE_URL}/api/designs`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newDesign),

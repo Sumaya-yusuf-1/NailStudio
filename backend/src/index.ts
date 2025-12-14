@@ -1,15 +1,23 @@
-import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import { Design } from "./models/Design";
 
 dotenv.config();
-
 const app = express();
 
-app.use(cors({ origin: "http://localhost:3000" })); // frontend origin
-app.use(express.json());
+app.use(express.json()); 
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://nail-studio-nine.vercel.app"],
+    methods: ["GET", "POST", "DELETE"],
+     allowedHeaders: ["Content-Type"],
+    optionsSuccessStatus: 200,
+  })
+);
+
 
 // health check
 app.get("/", (_req: Request, res: Response) => {
