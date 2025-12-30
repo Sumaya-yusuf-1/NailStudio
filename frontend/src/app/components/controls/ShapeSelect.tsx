@@ -16,6 +16,7 @@ const SHAPE_OPTIONS: { id: ShapeId; label: string; img: string }[] = [
 type Props = {
   value: ShapeId;
   onChange: (shape: ShapeId) => void;
+  disabled?: boolean;
 };
 
 export function ShapeSelect({ value, onChange }: Props) {

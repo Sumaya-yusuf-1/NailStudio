@@ -13,6 +13,7 @@ const LENGTH_OPTIONS: { id: LengthId; label: string }[] = [
 type Props = {
   value: LengthId;
   onChange: (length: LengthId) => void;
+  disabled?: boolean;
 };
 
 export function LengthSelect({ value, onChange }: Props) {
@@ -66,8 +67,8 @@ export function LengthSelect({ value, onChange }: Props) {
 
         {open && (
           <div
-            className='mt-2 flex gap-6 bg-[#D7C0C3] p-4 rounded-lg w-100 h-15 ml-3  justify-center items-center  md:max-w-[600px] md:mx-auto
-  lg:max-w-[330px] lg:mx-auto lg:-ml-8 lg:mt-4'
+            className='mt-2 flex gap-4 bg-[#D7C0C3] p-2 rounded-lg w-80  h-15   justify-center items-center 
+  lg:max-w-[330px] lg:mx-auto lg:-ml-8 l:mt-4'
           >
             {LENGTH_OPTIONS.map((opt) => {
               const isActive = value === opt.id;

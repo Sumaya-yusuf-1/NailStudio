@@ -3,17 +3,23 @@
 type Props = {
   value: boolean;
   onChange: (val: boolean) => void;
+  disabled?: boolean;
 };
 
-export function GlitterToggle({ value, onChange }: Props) {
+export function GlitterToggle({ value, onChange,disabled }: Props) {
   return (
     <div className="flex flex-col gap-1 min-w-[120px]">
       
-
-      <button
+<button
         type="button"
-        onClick={() => onChange(!value)}
-        className="flex w-full items-center justify-between rounded-lg border border-[#BA4576]/30 bg-white px-3 py-3 text-[15px] font-light text-gray-800 hover:bg-pink-50"
+        aria-disabled={disabled}
+        onClick={() => {
+          if (disabled) return; 
+          onChange(!value);
+        }}
+        className="flex w-full items-center justify-between rounded-lg border 
+          border-[#BA4576]/30 bg-white px-3 py-3 text-[15px] font-light
+          hover:bg-pink-50"
       >
         <span className="text-l">Glitter</span>
         <span
@@ -28,6 +34,11 @@ export function GlitterToggle({ value, onChange }: Props) {
           />
         </span>
       </button>
+       {disabled && (
+        <p className="text-xs text-gray-500">
+          Choose a base color to enable glitter
+        </p>
+      )}
     </div>
   );
 }

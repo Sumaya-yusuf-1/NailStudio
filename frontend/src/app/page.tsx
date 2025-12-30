@@ -4,6 +4,7 @@
 import Image from "next/image";
 import { Button } from "./components/ui/Button";
 import { Award, Heart, Palette, Sparkles, Star } from "lucide-react";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
@@ -30,19 +31,21 @@ export default function HomePage() {
               </p>
 
               <div className="flex flex-col gap-3 pt-2 sm:flex-row md:gap-4">
+                <Link href='/create'>
                 <Button
                   size="lg"
                   className="w-full rounded-md bg-pink-600 px-6 text-white hover:bg-pink-700 md:px-8 sm:w-auto"
                 >
                   Start Designing
-                </Button>
+                </Button></Link>
+                <Link href='/gallery'>
                 <Button
                   size="lg"
                   variant="outline"
                   className="w-full rounded-md border-pink-500 bg-white px-6 text-pink-600 hover:bg-pink-50 md:px-8 sm:w-auto"
                 >
                   View Gallery
-                </Button>
+                </Button></Link>
               </div>
             </div>
 

@@ -24,22 +24,28 @@ const STICKER_OPTIONS: { id: string; label: string; icon: string }[] = [
   { id: "star-outline", label: "Star Outline", icon: "☆" },
 
   { id: "dot", label: "Dot", icon: "•" },
-  
 ];
 
 type Props = {
   value: string | null;
   onChange: (sticker: string | null) => void;
+  disabled?: boolean;
 };
 
-export function StickerSelect({ value, onChange }: Props) {
+export function StickerSelect({ value, onChange, disabled }: Props) {
   const [open, setOpen] = useState(false);
+ 
 
   return (
     <div className='relative inline-block min-w-[140px]'>
       <button
         type='button'
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={() => {
+          if (disabled) {
+            return;
+          }
+          setOpen((prev) => !prev);
+        }}
         className='flex w-full items-center gap-2 rounded-lg border border-[#BA4576]/40 bg-white px-3 py-3 text-[15px] font-light text-gray-800'
       >
         <span>Stickers</span>
@@ -59,6 +65,11 @@ export function StickerSelect({ value, onChange }: Props) {
           </svg>
         </span>
       </button>
+     {disabled && (
+     <p className="text-xs text-gray-500">
+      Choose a base color to enable stickers.
+     </p>
+     )}
 
       {/* Dropdown */}
       {open && (

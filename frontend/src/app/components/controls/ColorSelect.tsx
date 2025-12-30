@@ -5,6 +5,7 @@ import { useState } from "react";
 type Props = {
   value: string;
   onChange: (color: string) => void;
+  disabled?: boolean;
 };
 
 type ColorGroup = {
