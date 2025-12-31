@@ -1,4 +1,4 @@
-import cors from "cors";
+import cors, { CorsOptions } from "cors";
 import dotenv from "dotenv";
 import express, { Request, Response } from "express";
 import mongoose from "mongoose";
@@ -7,32 +7,30 @@ import { Design } from "./models/Design";
 dotenv.config();
 const app = express();
 
-app.use(express.json()); 
+app.use(express.json());
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
+const corsOptions: CorsOptions = {
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
 
-      const allowed = [
-        "http://localhost:3000",
-        "https://nail-studio-nine.vercel.app",
-      ];
+    const allowed = [
+      "http://localhost:3000",
+      "https://nail-studio-nine.vercel.app",
+    ];
 
-      const isVercelPreview = origin.endsWith(".vercel.app");
+    const isVercelPreview = origin.endsWith(".vercel.app");
 
-      if (allowed.includes(origin) || isVercelPreview) return callback(null, true);
+    if (allowed.includes(origin) || isVercelPreview) {
+      return callback(null, true);
+    }
 
-      return callback(new Error(`CORS blocked: ${origin}`));
-    },
-    methods: ["GET", "POST", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type"],
-  })
-);
+    callback(new Error(`CORS blocked: ${origin}`));
+  },
+  methods: ["GET", "POST", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+};
 
-// ✅ Express 5-safe preflight route
-app.options("/*", cors());
-
+app.use(cors(corsOptions));
 
 
 // health check
@@ -76,7 +74,7 @@ app.post("/api/designs", async (req: Request, res: Response) => {
     res.status(500).json({ message: "Failed to save design" });
   }
 });
- 
+
 // ---- API: delete design by id ----
 app.delete("/api/designs/:id", async (req: Request, res: Response) => {
   try {
@@ -106,10 +104,10 @@ async function start() {
       console.log("✅ Connected to MongoDB");
     }
 
-    const PORT = process.env.PORT || 4000;
-    app.listen(PORT, () => {
-      console.log(`🚀 NailStudio backend running on http://localhost:${PORT}`);
-    });
+  const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`🚀 NailStudio backend running on port ${PORT}`);
+});
   } catch (err) {
     console.error("Failed to start server:", err);
     process.exit(1);
