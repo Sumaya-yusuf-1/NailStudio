@@ -28,7 +28,7 @@ export function Header() {
           <Link href='/' className='flex items-center shrink-0'>
             <div className='relative h-16 w-64 md:h-20 md:w-80 -ml-6'>
               <Image
-                src='/image copy.png'
+                src='/image-copy.png'
                 alt='NailStudio logo'
                 fill
                 className='object-contain  h-20 w-72  -mt-4 md: -ml-13 '

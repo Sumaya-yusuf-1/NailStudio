@@ -4,6 +4,16 @@ import { Footer } from "./components/layout/Footer";
 import { Header } from "./components/layout/Header";
 import "./globals.css";
 
+export const metadata = {
+  title: {
+    default: "NailStudio",
+    template: "%s | NailStudio",
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
+};
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang='en'>
