@@ -11,12 +11,28 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://nail-studio-nine.vercel.app"],
-    methods: ["GET", "POST", "DELETE"],
-     allowedHeaders: ["Content-Type"],
-    optionsSuccessStatus: 200,
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      const allowed = [
+        "http://localhost:3000",
+        "https://nail-studio-nine.vercel.app",
+      ];
+
+      const isVercelPreview = origin.endsWith(".vercel.app");
+
+      if (allowed.includes(origin) || isVercelPreview) return callback(null, true);
+
+      return callback(new Error(`CORS blocked: ${origin}`));
+    },
+    methods: ["GET", "POST", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
   })
 );
+
+// ✅ Express 5-safe preflight route
+app.options("/*", cors());
+
 
 
 // health check
