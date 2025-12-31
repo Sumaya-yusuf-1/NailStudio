@@ -60,7 +60,24 @@ app.post("/api/designs", async (req: Request, res: Response) => {
     res.status(500).json({ message: "Failed to save design" });
   }
 });
+ 
+// ---- API: delete design by id ----
+app.delete("/api/designs/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
 
+    const deleted = await Design.findByIdAndDelete(id);
+
+    if (!deleted) {
+      return res.status(404).json({ message: "Design not found" });
+    }
+
+    res.json({ message: "Design deleted", id });
+  } catch (err) {
+    console.error("Error deleting design:", err);
+    res.status(500).json({ message: "Failed to delete design" });
+  }
+});
 // ---- Mongo connection & server start ----
 const MONGO_URI = process.env.MONGO_URI || "";
 

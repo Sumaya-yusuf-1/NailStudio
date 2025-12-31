@@ -1,12 +1,9 @@
 "use client";
 
-import {
-  SavedDesign,
-  deleteSavedDesign,
-  saveCurrentDesign,
-} from "@/lib/designStorage";
+import { SavedDesign, saveCurrentDesign } from "@/lib/designStorage";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { Button } from "../components/ui/Button";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
@@ -29,6 +26,7 @@ export default function GalleryPage() {
 
         const json = await res.json();
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const mapped: SavedDesign[] = json.map((d: any) => ({
           id: d._id,
           shape: d.shape,
@@ -53,9 +51,23 @@ export default function GalleryPage() {
     };
   }, []);
 
-  function handleDelete(id: string) {
-    setDesigns((prev) => prev.filter((d) => d.id !== id));
-    deleteSavedDesign(id); // just localStorage för nu
+  async function handleDelete(id: string) {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/designs/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) {
+        throw new Error("Delete failed");
+      }
+
+      setDesigns((prev) => prev.filter((d) => d.id !== id));
+
+      toast.success("Design deleted 🗑️");
+    } catch (e) {
+      console.error(e);
+      toast.error("Could not delete design 😢");
+    }
   }
 
   function capitalise(str: string) {
