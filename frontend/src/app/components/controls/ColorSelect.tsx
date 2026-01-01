@@ -1,5 +1,5 @@
 "use client";
-
+  import { useEffect } from "react";
 import { useState } from "react";
 
 type Props = {
@@ -47,57 +47,89 @@ const COLOR_GROUPS: ColorGroup[] = [
   {
     name: "Jelly",
     colors: [
-      "#E8A6A1",
-      "#D94A7A",
-      "#A83833",
-      "#C67354",
-      "#9B7A5E",
-      "#7CB8C9",
-      "#3F57B9",
-      "#7CD9B0",
-      "#4A6A27",
-      "#282828",
+      "#F28B82",
+      "#FF6F91",
+      "#FF9671",
+      "#FFC75F",
+      "#8ED081",
+      "#4D96A9",
+      "#6A7FDB",
+      "#9B7FD9",
+      "#C97FA5",
+      "#5C5C5C",
     ],
   },
   {
     name: "Matte",
     colors: [
-      "#A22B2B",
-      "#C94D25",
-      "#D1B025",
-      "#85B039",
-      "#459E48",
-      "#2A7A80",
-      "#3A59BF",
-      "#6E3FB8",
-      "#9D4E72",
-      "#2B2B2B",
+      "#8B2F2F",
+      "#A34A2A",
+      "#B49A2E",
+      "#6F8F3A",
+      "#3E7D4A",
+      "#2F6F73",
+      "#364A8F",
+      "#5E3C8F",
+      "#7F4A63",
+      "#1F1F1F",
     ],
   },
   {
-    name: "Metallic",
+    name: "Gradient",
     colors: [
-      "#C43131",
-      "#E65A28",
-      "#F2C327",
-      "#9CCB3C",
-      "#4DAE4F",
-      "#2D8C8F",
-      "#4167D8",
-      "#7C48C9",
-      "#B55685",
-      "#3A3A3A",
+      "linear-gradient(135deg, #F6D365, #FDA085)",
+      "linear-gradient(135deg, #A1C4FD, #C2E9FB)",
+      "linear-gradient(135deg, #FCCB90, #D57EEB)",
+      "linear-gradient(135deg, #FBC8D4, #9795F0)",
+      "linear-gradient(135deg, #84FAB0, #8FD3F4)",
+      "linear-gradient(135deg, #FF9A9E, #FECFEF)",
+      "linear-gradient(135deg, #667EEA, #764BA2)",
+      "linear-gradient(135deg, #89F7FE, #66A6FF)",
+      "linear-gradient(135deg, #FAD0C4, #FFD1FF)",
+      "linear-gradient(135deg, #C471F5, #FA71CD)",
+      "linear-gradient(135deg, #FFF1EB, #ACE0F9)",
+      "linear-gradient(135deg, #FDEBEB, #FAD0C4)",
+      "linear-gradient(135deg, #FDFCFB, #E2D1C3)",
+      "linear-gradient(135deg, #F6F3FF, #E9D8FD)",
+      "linear-gradient(135deg, #FFF7E6, #FFD6A5)",
+      "linear-gradient(135deg, #F5EFE6, #E3D5C3)",
+      "linear-gradient(135deg, #F9F3F3, #EAD7D7)",
+      "linear-gradient(135deg, #F7F0FF, #DCCEFF)",
+      "linear-gradient(135deg, #2C3E50, #4CA1AF)",
+      "linear-gradient(135deg, #141E30, #243B55)",
+      "linear-gradient(135deg, #232526, #414345)",
+      "linear-gradient(135deg, #1F1C2C, #928DAB)",
+      "linear-gradient(135deg, #0F2027, #2C5364)",
+      "linear-gradient(135deg, #3A1C71, #D76D77)",
+      "linear-gradient(135deg, #41295A, #2F0743)",
+      "linear-gradient(135deg, #434343, #000000)",
     ],
   },
+
 ];
 
 export function ColorSelect({ value, onChange }: Props) {
   const [open, setOpen] = useState(false);
-
+  const isGradient = value?.startsWith("linear-gradient");
+  const previewStyle: React.CSSProperties = isGradient
+  ? { background: value }
+  : { backgroundColor: value || "#FFFFFF" };
   function handleSelect(color: string) {
     onChange(color);
     setOpen(false);
   }
+
+useEffect(() => {
+  if (open) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
+
+  return () => {
+    document.body.style.overflow = "";
+  };
+}, [open]);
 
   return (
     <div className='flex flex-col gap-1 min-w-[140px]'>
@@ -115,9 +147,10 @@ export function ColorSelect({ value, onChange }: Props) {
 
           <span className='ml-auto flex items-center gap-2'>
             {/* small color preview*/}
+          
             <span
-              className='h-4 w-4 rounded border border-gray-300 '
-              style={{ backgroundColor: value || "#FFFFFF" }}
+              className="h-4 w-4 rounded border border-gray-300"
+              style={previewStyle}
             />
             <svg
               width='16'
@@ -136,7 +169,7 @@ export function ColorSelect({ value, onChange }: Props) {
 
         {/* Dropdown color picker */}
         {open && (
-          <div className='absolute left-0 z-10 mt-2 w-[340px] rounded-2xl bg-[#DFBBBB] p-4 shadow-lg'>
+          <div className='absolute left-0 z-10 mt-2 w-[320px] rounded-2xl -ml-2 bg-[#DFBBBB] p-4 shadow-lg lg:-ml-10'>
             <div className='flex max-h-72 flex-col gap-3 overflow-y-auto pr-1'>
               {COLOR_GROUPS.map((group) => (
                 <div key={group.name}>
@@ -146,18 +179,22 @@ export function ColorSelect({ value, onChange }: Props) {
                   <div className='flex flex-wrap gap-1.5'>
                     {group.colors.map((color) => {
                       const isActive = value === color;
+                      const isGradientColor = color.startsWith("linear-gradient");
                       return (
-                        <button
-                          key={color}
-                          type='button'
-                          onClick={() => handleSelect(color)}
-                          className={`h-6 w-6 rounded-full border ${
-                            isActive
-                              ? "border-[#a30a4a] ring-2 ring-[#BA4576]/40"
-                              : "border-transparent"
-                          }`}
-                          style={{ backgroundColor: color }}
-                        />
+                       <button
+                        key={color}
+                        type='button'
+                        onClick={() => handleSelect(color)}
+                        className={`h-6 w-6 rounded-full border ${
+                          isActive
+                            ? "border-[#a30a4a] ring-2 ring-[#BA4576]/40"
+                            : "border-transparent"
+                        }`}
+                        style={{
+                          background: isGradientColor ? color : undefined,
+                          backgroundColor: !isGradientColor ? color : undefined,
+                        }}
+                      />
                       );
                     })}
                   </div>
