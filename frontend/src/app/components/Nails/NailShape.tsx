@@ -17,8 +17,8 @@ const ROUND_BY_LENGTH: Record<LengthId, string> = {
 // Oval
 const OVAL_BY_LENGTH: Record<LengthId, string> = {
   short:  "scale-x-[1.95] scale-y-[0.89] -mt-10 translate-y-[6px]",
-  medium: "scale-x-[1.65] scale-y-[1.00] -mt-3 translate-y-[1px]",
-  long:   "scale-x-[1.5] scale-y-[1.18] mt-1",
+  medium: "scale-x-[1.68] scale-y-[1.00] -mt-3 translate-y-[1px]",
+  long:   "scale-x-[1.52] scale-y-[1.18] mt-1",
 };
 
 // Almond
@@ -42,7 +42,7 @@ const SQUOVAL_BY_LENGTH: Record<LengthId, string> = {
   long:   "scale-x-[2] scale-y-[1.1] -mt-0 translate-x-[-1px]", 
 };
 const STILETTO_BY_LENGTH: Record<LengthId, string> = {
-  short:  "w-[150px] h-[170px] translate-y-[6px] translate-x-[2px] scale-y-[1.07] scale-x-[1.0] -ml-3 mt-3",
+  short:  "w-[150px] h-[170px] translate-y-[6px] translate-x-[1px] scale-y-[1.08] scale-x-[1.0] -ml-3 mt-4",
   medium: "w-[150px] h-[170px] translate-y-[6px] translate-x-[2px] scale-y-[1.07] scale-x-[0.9] -ml-3 mt-3",
   long:   "w-[150px] h-[170px] translate-y-[6px] translate-x-[2px] scale-y-[1.07] scale-x-[0.77] -ml-3 mt-3",
 };

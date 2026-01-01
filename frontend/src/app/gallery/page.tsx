@@ -87,16 +87,16 @@ export default function GalleryPage() {
 
   return (
     <div className="mx-auto w-full max-w-5xl space-y-6 px-4 sm:px-6">
-  <h1 className="text-xl font-semibold text-slate-900 mt-6 lg: ml-25">
+  <h1 className="text-xl font-semibold text-slate-900 mt-6">
     All saved by you
   </h1>
       {designs.length === 0 ? (
-        <p className='text-sm text-slate-600 ml-25  '>
+        <p className='text-sm text-slate-600'>
           You haven&apos;t saved any designs yet. Go to the Create page and tap
           <span className='font-semibold'> Save</span>.
         </p>
       ) : (
-        <ul className='space-y-4 lg:space-y-7 lg:max-w-5xl lg:p-6 lg:mx-auto lg:ml-60 '>
+        <ul className='space-y-4 ml-10 lg:ml-50 lg:space-y-7'>
           {designs.map((d) => {
             const shapeLabel = capitalise(d.shape);
             const lengthLabel = capitalise(d.length);

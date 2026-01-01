@@ -26,8 +26,6 @@ export default function CreatePage() {
     design,
     prevDesign,
     updateDesign,
-    clearColor,
-    clearSticker,
     undo,
     resetAll,
   } = useDesigns();
