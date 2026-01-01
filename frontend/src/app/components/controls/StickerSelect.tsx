@@ -100,17 +100,7 @@ export function StickerSelect({
     return () => document.removeEventListener("mousedown", onDown);
   }, [open, onOpenChange]);
 
-  useEffect(() => {
-  if (open) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "";
-  }
-
-  return () => {
-    document.body.style.overflow = "";
-  };
-}, [open]);
+  
   return (
     <div ref={ref} className='relative inline-block min-w-[140px]'>
       <button
