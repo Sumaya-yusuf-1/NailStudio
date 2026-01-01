@@ -86,18 +86,17 @@ export default function GalleryPage() {
   }
 
   return (
-    <div className='space-y-6'>
-      <h1 className='text-xl font-semibold p-3 mt-3 ml-4 text-slate-900 lg:mt-10 lg:ml-65  '>
-        All saved by you
-      </h1>
-
+    <div className="mx-auto w-full max-w-5xl space-y-6 px-4 sm:px-6">
+  <h1 className="text-xl font-semibold text-slate-900 mt-6 lg: ml-25">
+    All saved by you
+  </h1>
       {designs.length === 0 ? (
-        <p className='text-sm text-slate-600'>
+        <p className='text-sm text-slate-600 ml-25  '>
           You haven&apos;t saved any designs yet. Go to the Create page and tap
           <span className='font-semibold'> Save</span>.
         </p>
       ) : (
-        <ul className='space-y-4 w-[450px] ml-6 lg:space-y-7 lg:max-w-5xl lg:p-6 lg:mx-auto'>
+        <ul className='space-y-4 lg:space-y-7 lg:max-w-5xl lg:p-6 lg:mx-auto lg:ml-60 '>
           {designs.map((d) => {
             const shapeLabel = capitalise(d.shape);
             const lengthLabel = capitalise(d.length);
@@ -108,7 +107,7 @@ export default function GalleryPage() {
             return (
               <li
                 key={d.id}
-                className='flex items-center justify-between gap-4 rounded-2xl border border-pink-100 bg-white px-3 py-3 text-sm shadow-sm lg:p-5 '
+                className='flex items-center justify-between gap-4 rounded-2xl border border-pink-100 bg-white px-3 py-3 text-sm shadow-sm w-80 lg:p-5 lg:w-3xl lg:-ml-40 '
               >
                 <div className='flex items-center gap-4'>
                   <div className='flex h-20 w-16 items-end justify-center rounded-2xl bg-[#E9CED1]'>

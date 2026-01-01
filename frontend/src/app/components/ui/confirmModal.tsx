@@ -21,7 +21,7 @@ export function ConfirmModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="w-full max-w-sm rounded-2xl bg-white p-6 text-center shadow-lg">
+      <div className="w-80 max-w-sm rounded-2xl bg-white p-4 text-center shadow-lg">
         <p className="mb-6 text-sm text-gray-800">{message}</p>
 
         <div className="flex justify-center gap-3">

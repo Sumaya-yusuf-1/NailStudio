@@ -1,11 +1,13 @@
 "use client";
-  import { useEffect } from "react";
-import { useState } from "react";
+  import { useEffect, useRef } from "react";
+
 
 type Props = {
   value: string;
   onChange: (color: string) => void;
   disabled?: boolean;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 };
 
 type ColorGroup = {
@@ -108,15 +110,14 @@ const COLOR_GROUPS: ColorGroup[] = [
 
 ];
 
-export function ColorSelect({ value, onChange }: Props) {
-  const [open, setOpen] = useState(false);
+export function ColorSelect({ value, onChange, open, onOpenChange }: Props) {
   const isGradient = value?.startsWith("linear-gradient");
   const previewStyle: React.CSSProperties = isGradient
   ? { background: value }
   : { backgroundColor: value || "#FFFFFF" };
   function handleSelect(color: string) {
     onChange(color);
-    setOpen(false);
+    onOpenChange(false);
   }
 
 useEffect(() => {
@@ -130,14 +131,25 @@ useEffect(() => {
     document.body.style.overflow = "";
   };
 }, [open]);
+ 
+const ref = useRef<HTMLDivElement>(null);
+useEffect(() => {
+  function onDown(e: MouseEvent) {
+    if (ref.current && !ref.current.contains(e.target as Node)) {
+      onOpenChange(false);
+    }
+  }
 
+  if (open) document.addEventListener("mousedown", onDown);
+  return () => document.removeEventListener("mousedown", onDown);
+}, [open, onOpenChange]);
   return (
     <div className='flex flex-col gap-1 min-w-[140px]'>
-      <div className='relative inline-block w-full'>
+      <div ref={ref} className='relative inline-block w-full'>
        
         <button
           type='button'
-          onClick={() => setOpen((prev) => !prev)}
+          onClick={() => onOpenChange(!open)}
           className='flex w-full items-center gap-2 rounded-lg border border-[#BA4576]/30 bg-white px-3 py-3 text-[15px] font-light text-gray-800'
         >
           {/* icon for colors  */}

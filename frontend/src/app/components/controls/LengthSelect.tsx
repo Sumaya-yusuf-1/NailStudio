@@ -1,7 +1,7 @@
 "use client";
 
 import { LengthId } from "@/app/create/page";
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "../ui/Button";
 
 const LENGTH_OPTIONS: { id: LengthId; label: string }[] = [
@@ -14,18 +14,34 @@ type Props = {
   value: LengthId;
   onChange: (length: LengthId) => void;
   disabled?: boolean;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 };
 
-export function LengthSelect({ value, onChange }: Props) {
-  const [open, setOpen] = useState(false);
+export function LengthSelect({ value, onChange,
+  open,
+  onOpenChange }: Props) {
+  
+const ref = useRef<HTMLDivElement>(null);
+
+useEffect(() => {
+  function onDown(e: MouseEvent) {
+    if (ref.current && !ref.current.contains(e.target as Node)) {
+      onOpenChange(false);
+    }
+  }
+
+  if (open) document.addEventListener("mousedown", onDown);
+  return () => document.removeEventListener("mousedown", onDown);
+}, [open, onOpenChange]);
 
   return (
-    <div className='flex flex-col gap-1 min-w-[140px]'>
+    <div ref={ref} className='flex flex-col gap-1 min-w-[140px]'>
       <div className='inline-block w-full'>
         <Button
           type='button'
           variant='outline'
-          onClick={() => setOpen((prev) => !prev)}
+          onClick={() => onOpenChange(!open)}
           className='flex w-full items-center gap-2 rounded-lg px-3 py-2 text-[15px] font-light text-gray-800 lg:p-3'
         >
           <svg
@@ -67,8 +83,8 @@ export function LengthSelect({ value, onChange }: Props) {
 
         {open && (
           <div
-            className='mt-2 flex gap-4 bg-[#D7C0C3] p-2 rounded-lg w-80  h-15   justify-center items-center 
-  lg:max-w-[330px] lg:mx-auto lg:-ml-8 l:mt-4'
+            className='mt-4 -ml-2 flex gap-4 bg-[#D7C0C3] p-2 rounded-lg w-78  h-15   justify-center items-center 
+             lg:max-w-[330px] lg:mx-auto lg:-ml-6.5 '
           >
             {LENGTH_OPTIONS.map((opt) => {
               const isActive = value === opt.id;
@@ -80,7 +96,7 @@ export function LengthSelect({ value, onChange }: Props) {
                   variant={isActive ? "primary" : "outline"}
                   onClick={() => {
                     onChange(opt.id);
-                    setOpen(false);
+                    onOpenChange(false);
                   }}
                   className='px-6 py-2 text-sm rounded-lg'
                 >

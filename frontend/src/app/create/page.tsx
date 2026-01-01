@@ -31,12 +31,16 @@ export default function CreatePage() {
     undo,
     resetAll,
   } = useDesigns();
+
   const [isHydrated, setIsHydrated] = useState(false);
   const [modal, setModal] = useState({
     open: false,
     message: "",
     showGalleryAction: false,
   });
+
+  type OpenId = "shape" | "length" | "color" | "sticker" | null;
+  const [openId, setOpenId] = useState<OpenId>(null);
   useEffect(() => {
     setIsHydrated(true);
   }, []);
@@ -96,12 +100,26 @@ export default function CreatePage() {
   const hasShape = !!shape;
   const hasLength = !!length;
   const hasColor = !!color && color !== "transparent";
+  const hasSticker = !!sticker;
 
   const canPickLength = hasShape;
   const canPickColor = hasShape && hasLength;
   const canUseExtras = hasColor;
   const canSave = hasShape && hasLength && hasColor;
-
+function handleClearBaseColor() {
+  updateDesign({
+    color: "transparent",
+    glitterOn: false,
+    sticker: null,
+  });
+  setOpenId(null); 
+}
+function handleClearSticker() {
+  updateDesign({
+    sticker: null,
+  });
+  setOpenId(null);
+}
   return (
     <>
       <main className='min-h-[calc(100vh-120px)] bg-[#FFF6F4] px-4 py-10 flex items-center justify-center'>
@@ -116,6 +134,8 @@ export default function CreatePage() {
             <section className='flex flex-col gap-4 lg:gap-8'>
               <ShapeSelect
                 value={shape}
+                 open={openId === "shape"}
+                 onOpenChange={(v) => setOpenId(v ? "shape" : null)}
                 onChange={(newShape) =>
                   updateDesign({
                     shape: newShape,
@@ -128,12 +148,16 @@ export default function CreatePage() {
 
               <LengthSelect
                 value={length}
+                open={openId === "length"}
+                onOpenChange={(v) => setOpenId(v ? "length" : null)}
                 disabled={!canPickLength}
                 onChange={(newLength) => updateDesign({ length: newLength })}
               />
 
               <ColorSelect
                 value={color}
+                  open={openId === "color"}
+                  onOpenChange={(v) => setOpenId(v ? "color" : null)}
                 disabled={!canPickColor}
                 onChange={(newColor) => updateDesign({ color: newColor })}
               />
@@ -146,6 +170,8 @@ export default function CreatePage() {
 
               <StickerSelect
                 value={sticker}
+                 open={openId === "sticker"}
+                onOpenChange={(v) => setOpenId(v ? "sticker" : null)}
                 disabled={!canUseExtras}
                 onChange={(newSticker) => updateDesign({ sticker: newSticker })}
               />
@@ -168,7 +194,8 @@ export default function CreatePage() {
               <div className='border border-[#BA4576]/35 rounded-xl px-4 py-3 text-sm flex justify-between items-center bg-white/60 lg:p-3 '>
                 <span>BaseColor</span>
                 <Button
-                  onClick={clearColor}
+                  onClick={handleClearBaseColor}
+                  disabled={!hasColor}
                   aria-label='Remove base color'
                   variant='ghost'
                   size='icon'
@@ -188,8 +215,9 @@ export default function CreatePage() {
               <div className='border border-[#BA4576]/35 rounded-xl px-4 py-3 text-sm flex justify-between items-center bg-white/60 lg:p-3'>
                 <span>Sticker</span>
                 <Button
-                  onClick={clearSticker}
-                  aria-label='Remove base color'
+                 onClick={handleClearSticker}
+                 disabled={!hasSticker}
+                  aria-label='Remove Sticker'
                   variant='ghost'
                   size='icon'
                   shape='pill'

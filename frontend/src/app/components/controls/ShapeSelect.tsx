@@ -2,8 +2,7 @@
 
 import type { ShapeId } from "@/app/create/page";
 import Image from "next/image";
-import { useState } from "react";
-
+import { useEffect, useRef } from "react";
 const SHAPE_OPTIONS: { id: ShapeId; label: string; img: string }[] = [
   { id: "round", label: "Round", img: "/shapes/Round.png" },
   { id: "oval", label: "Oval", img: "/shapes/Oval.png" },
@@ -17,18 +16,33 @@ type Props = {
   value: ShapeId;
   onChange: (shape: ShapeId) => void;
   disabled?: boolean;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 };
 
-export function ShapeSelect({ value, onChange }: Props) {
-  const [open, setOpen] = useState(false);
+export function ShapeSelect({ value, onChange, open, onOpenChange,}: Props) {
+  
 
   const activeShape = SHAPE_OPTIONS.find((s) => s.id === value);
 
+  const ref = useRef<HTMLDivElement>(null);
+
+useEffect(() => {
+  function onDown(e: MouseEvent) {
+    if (ref.current && !ref.current.contains(e.target as Node)) {
+      onOpenChange(false);
+    }
+  }
+
+  if (open) document.addEventListener("mousedown", onDown);
+  return () => document.removeEventListener("mousedown", onDown);
+}, [open, onOpenChange]);
+
   return (
-    <div className='relative inline-block min-w-[140px]'>
+    <div ref={ref} className='relative inline-block min-w-[140px]'>
       <button
         type='button'
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={() => onOpenChange(!open)}
         className='flex w-full items-center gap-2 rounded-lg border border-[#BA4576]/40 bg-white px-3 py-2 text-[15px] font-light text-gray-800 lg:p-2'
       >
         {/* thumbnail*/}
@@ -75,7 +89,7 @@ export function ShapeSelect({ value, onChange }: Props) {
           <div className='mb-3 items-center  text-sm font-light text-white/90 flex justify-end'>
             <button
               type='button'
-              onClick={() => setOpen(false)}
+              onClick={() => onOpenChange(false)}
               className='flex h-7 w-7 items-center justify-center rounded-full border border-white/60 text-xs '
             >
               ✕
@@ -93,7 +107,7 @@ export function ShapeSelect({ value, onChange }: Props) {
                   type='button'
                   onClick={() => {
                     onChange(opt.id);
-                    setOpen(false);
+                    onOpenChange(false);
                   }}
                   className={`
                     flex flex-col items-center gap-1 rounded-xl bg-white px-2 py-2 text-xs

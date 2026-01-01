@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 
 const STICKER_OPTIONS: { id: string; label: string; icon: string }[] = [
   { id: "flower", label: "Flower", icon: "❀" },
@@ -30,21 +30,35 @@ type Props = {
   value: string | null;
   onChange: (sticker: string | null) => void;
   disabled?: boolean;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 };
 
-export function StickerSelect({ value, onChange, disabled }: Props) {
-  const [open, setOpen] = useState(false);
+export function StickerSelect({ value, onChange, disabled, open,
+  onOpenChange, }: Props) {
  
+ const ref = useRef<HTMLDivElement>(null);
+
+useEffect(() => {
+  function onDown(e: MouseEvent) {
+    if (ref.current && !ref.current.contains(e.target as Node)) {
+      onOpenChange(false);
+    }
+  }
+
+  if (open) document.addEventListener("mousedown", onDown);
+  return () => document.removeEventListener("mousedown", onDown);
+}, [open, onOpenChange]);
 
   return (
-    <div className='relative inline-block min-w-[140px]'>
+    <div ref={ref} className='relative inline-block min-w-[140px]'>
       <button
         type='button'
         onClick={() => {
           if (disabled) {
             return;
           }
-          setOpen((prev) => !prev);
+          onOpenChange(!open);
         }}
         className='flex w-full items-center gap-2 rounded-lg border border-[#BA4576]/40 bg-white px-3 py-3 text-[15px] font-light text-gray-800'
       >
@@ -80,7 +94,7 @@ export function StickerSelect({ value, onChange, disabled }: Props) {
               type='button'
               onClick={() => {
                 onChange(null);
-                setOpen(false);
+                onOpenChange(false);
               }}
               className={`flex h-8 w-8 items-center justify-center rounded-full border border-white/60 text-xs ${
                 value === null ? "bg-white/20" : "bg-transparent"
@@ -92,7 +106,7 @@ export function StickerSelect({ value, onChange, disabled }: Props) {
 
           <div className='grid grid-cols-5 gap-5 justify-items-center'>
             {STICKER_OPTIONS.map((opt) => {
-              const isActive = value === opt.id;
+             const isActive = value === opt.icon;
 
               return (
                 <button
@@ -100,7 +114,7 @@ export function StickerSelect({ value, onChange, disabled }: Props) {
                   type='button'
                   onClick={() => {
                     onChange(opt.icon);
-                    setOpen(false);
+                    onOpenChange(false);
                   }}
                   className={`flex h-10 w-10 items-center justify-center rounded-md text-2xl text-white transition 
                     ${isActive ? "bg-transparent ring-2 ring-white" : "bg-transparent"}
