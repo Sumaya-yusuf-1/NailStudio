@@ -138,7 +138,7 @@ export function StickerSelect({
 
       {/* Dropdown */}
       {open && (
-        <div className='absolute left-0 z-10 mt-2 w-[400px] rounded-3xl bg-[#DFBBBB] p-6 shadow-lg'>
+        <div className='absolute left-0 z-10 mt-2 w-[320px] rounded-3xl bg-[#DFBBBB] p-6 shadow-lg'>
           <div className='mb-4 flex items-center justify-between text-sm font-light text-white/90'>
             <span>Stickers</span>
             <button
